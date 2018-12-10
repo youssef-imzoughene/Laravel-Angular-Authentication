@@ -1,0 +1,6 @@
+ng g c components/navbar
+ng g c components/login
+ng g c components/signup
+ng g c components/profile
+ng g c components/password/request-reset
+ng g c components/password/response-reset
