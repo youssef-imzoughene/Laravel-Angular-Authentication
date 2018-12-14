@@ -4,3 +4,5 @@ ng g c components/signup
 ng g c components/profile
 ng g c components/password/request-reset
 ng g c components/password/response-reset
+---
+ng g m app-routing --flat --module=app
