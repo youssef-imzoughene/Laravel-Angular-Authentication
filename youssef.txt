@@ -8,3 +8,7 @@ ng g c components/password/response-reset
 ng g m app-routing --flat --module=app
 
 
+php artisan make:middleware CORS
+php artisan make:controller test
+php artisan migrate
+

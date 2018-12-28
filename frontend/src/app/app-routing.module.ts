@@ -10,7 +10,7 @@ const appRoutes: Routes = [
 	//{ path: '', redirectTo: 'pokemon/list', pathMatch: 'full' },
   //{ path: '**', component: PageNotFoundComponent }
   { path: 'login', component: LoginComponent },
-  { path: 'singup', component: SignupComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'request-password-reset', component: RequestResetComponent },
   { path: 'response-password-reset', component: ResponseResetComponent },
