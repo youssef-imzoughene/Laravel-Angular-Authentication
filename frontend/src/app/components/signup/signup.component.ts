@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import {  tap } from 'rxjs/operators';
+import { HttpHeaders} from '@angular/common/http';
+import { JarwisService} from '../../jarwis.service'
+
 
 @Component({
   selector: 'app-signup',
@@ -10,16 +11,18 @@ import {  tap } from 'rxjs/operators';
 })
 export class SignupComponent implements OnInit {
 
-  public error={};
-  public form =  {
+  error:any;
+  form = {
     email:'',
     name:'',
     password:'',
     password_confirmation:''
   };
-  constructor(private http: HttpClient) { }
+  constructor(private _service:JarwisService) { }
 
   ngOnInit() {
+    console.log(this.form);
+    
   }
 
   onSubmit(f: NgForm) {
@@ -32,10 +35,10 @@ export class SignupComponent implements OnInit {
   
     let account = f.value;
     console.log(account);
-    return this.http.post("http://localhost:5278/api/signup", account, httpOptions).subscribe(
+    this._service.register(account,httpOptions).subscribe(
       (data) => {
         console.log(data)
-        this.error=data
+        this.error=data 
       },
       (error)=>{
         this.handlerError(error)
@@ -48,3 +51,4 @@ export class SignupComponent implements OnInit {
     this.error=error.error.errors;
   }
 }
+

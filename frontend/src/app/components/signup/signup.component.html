@@ -11,9 +11,11 @@
                 <label for="name" class="col-3 col-form-label">Name</label>
                 <div class="col-9">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Name" [(ngModel)]="form.name" required>
-                  <div class="alert alert-danger" [hidden]="!error.name">
-                      {{error.name}}
-                  </div>
+                  <ng-container *ngIf="error">
+                      <div class="alert alert-danger" [hidden]="!error.name">
+                          {{error.name}}
+                      </div>
+                  </ng-container> 
                 </div>
                 
             </div>  
@@ -22,9 +24,12 @@
               <label for="email" class="col-3 col-form-label">Email</label>
               <div class="col-9">
                 <input type="email" name="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="form.email" required>
-                <div class="alert alert-danger" [hidden]="!error.email">
-                    {{error.email}}
-                </div>
+                <ng-container *ngIf="error">
+                    <div class="alert alert-danger" [hidden]="!error.email">
+                        {{error.email}}
+                    </div>
+                </ng-container>
+               
               </div>
               
             </div>
@@ -34,9 +39,12 @@
               <div class="col-9">
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password"  
                 [(ngModel)]="form.password" required>
-                <div class="alert alert-danger" [hidden]="!error.password">
-                    {{error.password}}
-                </div>
+                <ng-container *ngIf="error">
+                    <div class="alert alert-danger" [hidden]="!error.password">
+                        {{error.password}}
+                    </div>
+                </ng-container>
+                
               </div>
              
             </div>

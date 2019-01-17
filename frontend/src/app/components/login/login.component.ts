@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import {  tap } from 'rxjs/operators';
+import { NgForm} from '@angular/forms';
+import { HttpHeaders} from '@angular/common/http';
+import { JarwisService} from '../../jarwis.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     email:null,
     password:null
   }
-  constructor(private http: HttpClient) { }
+  constructor(private _service:JarwisService) { }
 
   ngOnInit() {
    
@@ -32,21 +32,11 @@ export class LoginComponent implements OnInit {
   
     let account = f.value;
     console.log(account);
-    /*
-    return this.http.post("http://localhost:5278/api/test", account, httpOptions).subscribe(
-      tap((data) => {
+   
+    this._service.login(account, httpOptions).subscribe(
+      (data) => {
         console.log(data)
-      }),
-      (error)=>{
-        this.handlerError(error)
-      }
-      
-     );
-     */
-    return this.http.post("http://localhost:5278/api/login", account, httpOptions).subscribe(
-      tap((data) => {
-        console.log(data)
-      }),
+      },
       (error)=>{
         this.handlerError(error)
       }
