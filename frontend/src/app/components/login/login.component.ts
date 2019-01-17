@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { HttpHeaders} from '@angular/common/http';
 import { JarwisService} from '../../jarwis.service'
+import { TokenService} from '../../Services/token.service'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +16,9 @@ export class LoginComponent implements OnInit {
     email:null,
     password:null
   }
-  constructor(private _service:JarwisService) { }
+  constructor(private _service:JarwisService,
+              private _tokenService:TokenService
+    ) { }
 
   ngOnInit() {
    
@@ -35,17 +39,21 @@ export class LoginComponent implements OnInit {
    
     this._service.login(account, httpOptions).subscribe(
       (data) => {
-        console.log(data)
-      },
-      (error)=>{
-        this.handlerError(error)
+        this.handlerResponse(data)
       }
       
      ); 
   }
 
-  handlerError(error){
-    this.error=error.error.error;
+  handlerResponse(data){
+    //console.log(data.access_token);
+    if(typeof data.access_token != undefined){
+      //console.log(data.access_token);
+      this._tokenService.handle(data.access_token)
+    }else{
+      this.error=data;
+    }
+    
   }
  
 
