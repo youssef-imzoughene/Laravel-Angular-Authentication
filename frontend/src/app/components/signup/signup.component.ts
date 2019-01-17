@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { HttpHeaders} from '@angular/common/http';
 import { JarwisService} from '../../jarwis.service'
-
+import { TokenService} from '../../Services/token.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,9 @@ export class SignupComponent implements OnInit {
     password:'',
     password_confirmation:''
   };
-  constructor(private _service:JarwisService) { }
+  constructor(private _service:JarwisService,
+    private _tokenService:TokenService,
+    private _router:Router) { }
 
   ngOnInit() {
     console.log(this.form);
@@ -37,18 +40,24 @@ export class SignupComponent implements OnInit {
     console.log(account);
     this._service.register(account,httpOptions).subscribe(
       (data) => {
-        console.log(data)
-        this.error=data 
-      },
-      (error)=>{
-        this.handlerError(error)
+        this.handlerResponse(data)
       }
       
      ); 
   }
 
-  handlerError(error){
-    this.error=error.error.errors;
+  handlerResponse(data){
+    //console.log(data.access_token);
+    if(typeof data._token != undefined){
+      //console.log(data.access_token);
+      this._tokenService.handle(data._token)
+      if(this._tokenService.isValid()){
+        this._router.navigateByUrl('profile');
+      }  
+    }else{
+      this.error=data;
+    }
+    
   }
 }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,9 @@ export class TokenService {
   handle(token){
     this.set(token);
     console.log(this.isValid());
+    if(this.isValid()){
+      
+    }
     
   }
   set(token){

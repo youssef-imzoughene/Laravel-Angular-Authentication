@@ -13,3 +13,4 @@ php artisan make:controller test
 php artisan migrate
 
 ng g s Services/Token
+ng g s Services/Auth
