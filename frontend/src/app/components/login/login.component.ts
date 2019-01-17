@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   
     let account = f.value;
     console.log(account);
-    
-    return this.http.post("http://localhost:8000/api/login", account, httpOptions).subscribe(
+    /*
+    return this.http.post("http://localhost:5278/api/test", account, httpOptions).subscribe(
       tap((data) => {
         console.log(data)
       }),
@@ -42,6 +42,16 @@ export class LoginComponent implements OnInit {
       }
       
      );
+     */
+    return this.http.post("http://localhost:5278/api/login", account, httpOptions).subscribe(
+      tap((data) => {
+        console.log(data)
+      }),
+      (error)=>{
+        this.handlerError(error)
+      }
+      
+     ); 
   }
 
   handlerError(error){
