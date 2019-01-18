@@ -10,6 +10,8 @@ ng g m app-routing --flat --module=app
 
 php artisan make:middleware CORS
 php artisan make:controller test
+php artisan make:controller ResetPasswordController
+
 php artisan migrate
 
 ng g s Services/Token

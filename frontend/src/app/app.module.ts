@@ -13,6 +13,7 @@ import { HttpClientModule  } from '@angular/common/http';
 import { JarwisService} from './jarwis.service';
 import { TokenService} from './Services/token.service'
 import { AuthService } from './Services/auth.service'
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 @NgModule({
   declarations: [
@@ -28,12 +29,15 @@ import { AuthService } from './Services/auth.service'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SnotifyModule
   ],
   providers: [
     JarwisService,
     TokenService,
-    AuthService
+    AuthService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
   ],
   bootstrap: [AppComponent]
 })
