@@ -4,6 +4,7 @@ import { HttpHeaders} from '@angular/common/http';
 import { JarwisService} from '../../jarwis.service'
 import { TokenService} from '../../Services/token.service'
 import { Router } from '@angular/router'
+import { AuthService} from '../../Services/auth.service'
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,8 @@ export class SignupComponent implements OnInit {
   };
   constructor(private _service:JarwisService,
     private _tokenService:TokenService,
-    private _router:Router) { }
+    private _router:Router,
+    private _authService:AuthService) { }
 
   ngOnInit() {
     console.log(this.form);
@@ -52,6 +54,7 @@ export class SignupComponent implements OnInit {
       //console.log(data.access_token);
       this._tokenService.handle(data._token)
       if(this._tokenService.isValid()){
+        this._authService.changeAuthStatus(true);
         this._router.navigateByUrl('profile');
       }  
     }else{

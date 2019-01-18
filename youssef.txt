@@ -14,3 +14,7 @@ php artisan migrate
 
 ng g s Services/Token
 ng g s Services/Auth
+ng g s Services/After-login
+ng g s Services/before-login
+ng g g guards/auth
+ng g g guards/Notauth
