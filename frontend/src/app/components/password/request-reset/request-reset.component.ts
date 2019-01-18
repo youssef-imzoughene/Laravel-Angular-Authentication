@@ -22,15 +22,15 @@ export class RequestResetComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  // false
+    //console.log(f.value);  // { first: '', last: '' }
+    //console.log(f.valid);  // false
   
     const httpOptions = {
 			headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 		};
   
     let account = f.value;
-    console.log(account);
+    //console.log(account);
    
     this._service.sendPasswordResetLink(account, httpOptions).subscribe(
       (data) => {

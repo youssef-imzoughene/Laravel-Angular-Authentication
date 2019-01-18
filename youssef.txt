@@ -20,3 +20,7 @@ ng g s Services/After-login
 ng g s Services/before-login
 ng g g guards/auth
 ng g g guards/Notauth
+
+php artisan make:mail ResetPasswordMail --markdown=Email.passwordRest
+
+https://mailtrap.io
