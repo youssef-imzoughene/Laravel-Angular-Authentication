@@ -24,5 +24,3 @@ ng g g guards/Notauth
 php artisan make:mail ResetPasswordMail --markdown=Email.passwordRest
 
 https://mailtrap.io
-
- frontend/package-lock.json

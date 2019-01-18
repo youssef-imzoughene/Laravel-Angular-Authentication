@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordMail;
+use DB;
+use Carbon\Carbon;
 
 class ResetPasswordController extends Controller
 {
@@ -20,8 +22,8 @@ class ResetPasswordController extends Controller
         if(!$this->validateEmail($request->email)){
             return $this->failedResponse();
         }
-        $this->send($request->email);
-        return $this->successResponse();
+        return $this->send($request->email);
+        //return $this->successResponse();
     }
     public function validateEmail($email){
         return !!User::where('email',$email)->first();
@@ -34,7 +36,9 @@ class ResetPasswordController extends Controller
         );
     }
     public function send($email){
-        Mail::to($email)->send(new ResetPasswordMail);
+        $token = $this->createToken($email);
+        return response()->json($token);
+        //Mail::to($email)->send(new ResetPasswordMail($token));
     }
     public function successResponse(){
         return response()->json(
@@ -42,5 +46,22 @@ class ResetPasswordController extends Controller
                 'data'=>'Reset Email is send successfully, please check your inbox'
             ],Response::HTTP_OK
         );
+    }
+    public function createToken($email){
+        $oldToken=DB::table('password_resets')->where('email',$email)->first();
+        if($oldToken){
+            return $oldToken;
+        }
+
+        $token = str_random(60);
+        $this->saveToken($token,$email);
+        return $token;
+    }
+    public function saveToken($token,$email){
+        DB::table('password_resets')->insert([
+            'email'=>$email,
+            'token'=>$token,
+            'created_at'=>Carbon::now()
+        ]);
     }
 }
