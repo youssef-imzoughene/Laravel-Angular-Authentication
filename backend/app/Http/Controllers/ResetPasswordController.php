@@ -37,7 +37,7 @@ class ResetPasswordController extends Controller
     public function send($email){
         $token = $this->createToken($email);
         Mail::to($email)->send(new ResetPasswordMail($token->token));
-        return response()->json($token);
+        return $this->successResponse();
     }
     public function successResponse(){
         return response()->json(

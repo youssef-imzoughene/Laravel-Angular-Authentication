@@ -22,8 +22,7 @@ export class RequestResetComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(f: NgForm) {
-    //console.log(f.value);  // { first: '', last: '' }
-    //console.log(f.valid);  // false
+    this.snotifyService.info('Wait...',{timeout:5000});
 
     const httpOptions = {
 			headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,16 +36,15 @@ export class RequestResetComponent implements OnInit {
         console.log(data);
         this.handlerResponse(data)
       },
-      (error)=>{
-        this.snotifyService.error=error
+      (error) =>{
+        console.log(error.error.error);
+        this.snotifyService.error(error.error.error,{timeout:0})
       }
-
      );
   }
 
   handlerResponse(data){
     this.form.email=null;
-
-
+    this.snotifyService.success(data.data,{timeout:0})
   }
 }
