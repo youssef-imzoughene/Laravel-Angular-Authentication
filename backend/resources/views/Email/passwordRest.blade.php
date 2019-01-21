@@ -1,9 +1,9 @@
 @component('mail::message')
 # Change password Request
 
-Click onthe button below to change password
+Click on the button below to change password
 
-@component('mail::button', ['url' => {{$token}} ])
+@component('mail::button', ['url' => $link.$token ])
 Reset Password
 @endcomponent
 

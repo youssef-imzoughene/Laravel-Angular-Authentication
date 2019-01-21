@@ -16,7 +16,6 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['sendEmail']]);
     }
-    //
     public function sendEmail(Request $request){
         //return $request->all();
         if(!$this->validateEmail($request->email)){
@@ -37,8 +36,8 @@ class ResetPasswordController extends Controller
     }
     public function send($email){
         $token = $this->createToken($email);
+        Mail::to($email)->send(new ResetPasswordMail($token->token));
         return response()->json($token);
-        //Mail::to($email)->send(new ResetPasswordMail($token));
     }
     public function successResponse(){
         return response()->json(

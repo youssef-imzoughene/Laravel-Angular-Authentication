@@ -14,7 +14,7 @@ export class RequestResetComponent implements OnInit {
   form={
     email:''
   }
-  
+
   constructor(
     private _service:JarwisService,
     private snotifyService: SnotifyService) { }
@@ -24,14 +24,14 @@ export class RequestResetComponent implements OnInit {
   onSubmit(f: NgForm) {
     //console.log(f.value);  // { first: '', last: '' }
     //console.log(f.valid);  // false
-  
+
     const httpOptions = {
 			headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 		};
-  
+
     let account = f.value;
-    //console.log(account);
-   
+    console.log(account);
+
     this._service.sendPasswordResetLink(account, httpOptions).subscribe(
       (data) => {
         console.log(data);
@@ -40,17 +40,13 @@ export class RequestResetComponent implements OnInit {
       (error)=>{
         this.snotifyService.error=error
       }
-      
-     ); 
+
+     );
   }
 
   handlerResponse(data){
     this.form.email=null;
-    if(typeof data.access_token != undefined){
-      
-    }else{
-      
-    }
-    
+
+
   }
 }

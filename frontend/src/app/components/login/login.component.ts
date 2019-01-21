@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-   
+
   }
 
   public error=null;
@@ -34,20 +34,25 @@ export class LoginComponent implements OnInit {
   onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  // false
-  
+
     const httpOptions = {
 			headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 		};
-  
+
     let account = f.value;
     console.log(account);
-   
+
     this._service.login(account, httpOptions).subscribe(
       (data) => {
         this.handlerResponse(data)
+      },
+      (error)=>{
+        console.log(error.error.error);
+        this.error=error.error.error
+        this.form.password=null;
       }
-      
-     ); 
+
+     );
   }
 
   handlerResponse(data){
@@ -58,12 +63,14 @@ export class LoginComponent implements OnInit {
       if(this._tokenService.isValid()){
         this._authService.changeAuthStatus(true);
         this._router.navigateByUrl('profile');
-      }  
+      }
     }else{
-      this.error=data;
+      console.log(data);
+      console.log(data.error);
+      this.error=data.error;
     }
-    
+
   }
- 
+
 
 }
